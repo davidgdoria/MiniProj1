@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>David Dória — Currículo</title>
+  <meta name="description" content="Currículo de David Dória (MiniProj1, SPA em Vue.js).">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+  <style>
+    :root {
+      --papel: #f6f6f3;
+      --branco: #fff;
+      --tinta: #16181b;
+      --cinza: #5e6268;
+      --regua: #dcdcd5;
+      --laranja: #d9480f;
+      --sans: "IBM Plex Sans", system-ui, "Segoe UI", Roboto, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: var(--papel);
+      color: var(--tinta);
+      font: 16px/1.6 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* A aplicação ocupa exatamente a janela: cabeçalho e rodapé fixos,
+       e o conteúdo de cada página ajusta-se ao espaço do meio. */
+    #app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+    a { color: inherit; }
+    ::selection { background: var(--laranja); color: #fff; }
+    :focus-visible { outline: 2px solid var(--laranja); outline-offset: 3px; }
+
+    .largura { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+
+    /* ---------- topo ---------- */
+    .topo { flex: none; border-bottom: 1px solid var(--regua); }
+    .topo .largura {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 12px 32px; padding-top: 14px; padding-bottom: 14px;
+    }
+    .assinatura { display: flex; align-items: center; gap: 12px; font-weight: 600; text-decoration: none; }
+    .monograma {
+      display: grid; place-items: center; width: 38px; height: 38px;
+      border: 2px solid var(--tinta); font: 500 .95rem var(--mono);
+      transition: background .15s, color .15s;
+    }
+    .assinatura:hover .monograma { background: var(--tinta); color: var(--papel); }
+
+    .menu { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+    .menu a { position: relative; padding: 4px 0; color: var(--cinza); text-decoration: none; }
+    .menu a:hover { color: var(--tinta); }
+    .menu small { margin-right: 6px; color: var(--laranja); font: .75rem var(--mono); }
+    .menu a.router-link-exact-active { color: var(--tinta); }
+    .menu a.router-link-exact-active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--laranja);
+    }
+
+    /* ---------- palco: a área entre o cabeçalho e o rodapé ---------- */
+    main { display: flex; flex: 1; align-items: center; min-height: 0; overflow: hidden; }
+    .palco { width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 40px; transform-origin: center center; }
+
+    /* ---------- cabeçalho de cada página ---------- */
+    .cabeca { margin-bottom: 28px; }
+    .cabeca .num { color: var(--laranja); font: 500 .85rem var(--mono); }
+    .cabeca h1 {
+      margin: .1em 0 .2em; font-size: clamp(2.2rem, 4.5vw, 3rem); font-weight: 600;
+      line-height: 1.05; letter-spacing: -.025em;
+    }
+    .lead { max-width: 52ch; margin: 0; color: var(--cinza); font-size: 1.15rem; }
+
+    .colunas { display: grid; gap: 40px; align-items: start; }
+    .colunas--2 { grid-template-columns: 1.5fr 1fr; }
+    .colunas--3 { grid-template-columns: 1.3fr 1fr 1fr; }
+
+    .rotulo { margin: 0 0 14px; color: var(--cinza); font: 500 .9rem var(--mono); }
+    .rotulo::before { content: "// "; color: var(--laranja); }
+
+    /* ---------- botões ---------- */
+    .botao {
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px;
+      border: 2px solid var(--tinta); background: var(--tinta); color: var(--papel);
+      font: 500 .95rem var(--mono); text-decoration: none; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .botao:hover { background: var(--laranja); border-color: var(--laranja); color: #fff; }
+    .botao--linha { background: transparent; color: var(--tinta); }
+    .botao svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ---------- início ---------- */
+    .inicio { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+    .etiqueta { margin: 0 0 18px; color: var(--laranja); font: 500 .95rem var(--mono); }
+    .nome-grande {
+      margin: 0 0 24px; font-size: clamp(3.2rem, 8vw, 6.2rem); font-weight: 600;
+      line-height: .92; letter-spacing: -.045em;
+    }
+    .nome-grande span { display: block; }
+    .foto { width: 160px; aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 20px; border: 1px solid var(--tinta); filter: grayscale(1); }
+
+    .indice { margin: 0 0 32px; padding: 0; list-style: none; border-top: 2px solid var(--tinta); }
+    .indice a {
+      display: flex; align-items: baseline; gap: 16px; padding: 16px 0;
+      border-bottom: 1px solid var(--regua); text-decoration: none;
+    }
+    .indice .n { width: 2ch; color: var(--laranja); font: 500 .85rem var(--mono); }
+    .indice .t { font-size: 1.4rem; font-weight: 600; letter-spacing: -.01em; transition: color .15s; }
+    .indice .pontos { flex: 1; min-width: 24px; border-bottom: 2px dotted var(--regua); transform: translateY(-6px); transition: border-color .15s; }
+    .indice .d { color: var(--cinza); font-size: .95rem; }
+    .indice a:hover .t { color: var(--laranja); }
+    .indice a:hover .pontos { border-color: var(--laranja); }
+
+    /* ---------- quem sou eu ---------- */
+    .texto p { margin: 0 0 1em; }
+    .texto p:first-child { font-size: 1.15rem; }
+
+    .ficha { border: 2px solid var(--tinta); background: var(--branco); }
+    .ficha__titulo { margin: 0; padding: 8px 16px; background: var(--tinta); color: var(--papel); font: 500 .8rem var(--mono); }
+    .ficha dl { margin: 0; }
+    .ficha dl div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--regua); }
+    .ficha dl div:last-child { border-bottom: 0; }
+    .ficha dt { padding-top: 3px; color: var(--cinza); font: .8rem var(--mono); }
+    .ficha dd { margin: 0; font-size: .95rem; font-weight: 500; line-height: 1.45; overflow-wrap: anywhere; }
+
+    /* linhas de formação e experiência */
+    .linhas { margin: 0; padding: 0; list-style: none; }
+    .linhas li { display: grid; grid-template-columns: 160px 1fr; gap: 2px 20px; padding: 10px 0; border-bottom: 1px solid var(--regua); line-height: 1.45; }
+    .linhas li:first-child { padding-top: 0; }
+    .linhas li:last-child { border-bottom: 0; }
+    .linhas .datas { padding-top: 2px; color: var(--cinza); font: .82rem var(--mono); white-space: nowrap; }
+    .linhas .agora .datas { color: var(--laranja); }
+    .linhas strong { font-weight: 600; }
+    .linhas .onde { color: var(--cinza); }
+    .linhas p { margin: 2px 0 0; font-size: .92rem; }
+
+    .linhas--empilhadas li { display: block; padding: 0 0 12px; margin-bottom: 12px; }
+    .linhas--empilhadas li:last-child { margin-bottom: 0; padding-bottom: 0; }
+    .linhas--empilhadas .datas { display: block; margin-bottom: 2px; }
+    .linhas--empilhadas strong, .linhas--empilhadas .onde { display: block; }
+
+    /* ---------- competências ---------- */
+    .stack { margin: 0; }
+    .stack div + div { margin-top: 16px; }
+    .stack dt { margin-bottom: 6px; color: var(--cinza); }
+    .stack dd { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+    .stack code { padding: 2px 8px; border: 1px solid var(--regua); border-radius: 3px; background: var(--branco); font: .85rem var(--mono); }
+
+    /* ---------- hobbies: cartas ---------- */
+    .cartas { display: grid; grid-template-columns: repeat(4, minmax(0, 230px)); justify-content: start; gap: 24px; }
+    .carta {
+      --cor: #333;
+      position: relative; display: flex; flex-direction: column; aspect-ratio: 63 / 88; overflow: hidden;
+      padding: 10px; border: 0; border-radius: 14px; background: var(--cor);
+      color: var(--tinta); font: inherit; text-align: left; cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .carta:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 16px 32px rgba(0, 0, 0, .2); }
+    .carta:nth-child(even):hover { transform: translateY(-6px) rotate(1deg); }
+    .carta::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .35) 48%, transparent 62%);
+      transform: translateX(-110%); transition: transform .7s ease;
+    }
+    .carta:hover::after { transform: translateX(110%); }
+
+    .carta__topo, .carta__tipo, .carta__texto {
+      background: #f3f1ea; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .3);
+    }
+    .carta__topo {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 6px 10px; border-radius: 6px 6px 3px 3px; font-size: .95rem; font-weight: 600; line-height: 1.2;
+    }
+    .carta__custo {
+      display: grid; flex: none; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--cor); color: #fff; font: 500 .75rem var(--mono);
+    }
+    .carta__arte {
+      display: flex; flex: 1; align-items: center; justify-content: center; gap: 14px; margin: 6px 4px;
+      border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4);
+      background:
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, .08) 0 6px, transparent 6px 12px),
+        linear-gradient(160deg, rgba(255, 255, 255, .22), rgba(0, 0, 0, .3));
+    }
+    .carta__arte svg { width: 60px; height: 60px; fill: rgba(255, 255, 255, .92); filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .3)); }
+    .carta__arte svg + svg { width: 50px; }
+    .carta__tipo { padding: 4px 10px; border-radius: 3px; font-size: .8rem; font-weight: 500; }
+    .carta__texto {
+      margin-top: 6px; padding: 10px; min-height: 66px; border-radius: 3px 3px 6px 6px;
+      font-size: .9rem; font-style: italic; line-height: 1.4;
+    }
+    .carta__rodape {
+      display: flex; justify-content: space-between; padding: 6px 4px 0;
+      color: rgba(255, 255, 255, .85); font: .65rem var(--mono);
+    }
+
+    /* ---------- janela modal ---------- */
+    .fundo {
+      position: fixed; inset: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      background: rgba(22, 24, 27, .6);
+    }
+    .janela {
+      position: relative; width: 100%; max-width: 520px;
+      padding: 32px; border-top: 6px solid var(--cor, var(--laranja)); background: var(--branco);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .25);
+    }
+    .janela .tipo { margin: 0 0 4px; color: var(--cinza); font: .8rem var(--mono); }
+    .janela h2 { margin: 0 0 12px; font-size: 1.6rem; letter-spacing: -.01em; }
+    .janela p { margin: 0 0 1em; }
+    .janela .acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .fechar {
+      position: absolute; top: 10px; right: 10px; width: 36px; height: 36px;
+      border: 0; background: none; color: var(--cinza); font-size: 1.6rem; line-height: 1; cursor: pointer;
+    }
+    .fechar:hover { color: var(--tinta); }
+
+    /* ---------- rodapé ---------- */
+    .rodape { flex: none; background: var(--tinta); color: #c9cbd0; }
+    .rodape .largura {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px; padding-top: 16px; padding-bottom: 16px;
+    }
+    .rodape p { margin: 0; font: .85rem var(--mono); }
+    .rodape p a { color: #fff; text-underline-offset: 3px; }
+    .rodape p a:hover { color: var(--laranja); }
+    .redes { display: flex; gap: 10px; }
+    .redes a {
+      display: grid; place-items: center; width: 40px; height: 40px;
+      border: 1px solid #3a3d42; color: #e8e8e8; transition: background .15s, border-color .15s;
+    }
+    .redes a:hover { background: var(--laranja); border-color: var(--laranja); }
+    .redes svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ---------- transições ---------- */
+    .pagina-enter-active, .pagina-leave-active { transition: opacity .18s ease; }
+    .pagina-enter-from, .pagina-leave-to { opacity: 0; }
+    .modal-enter-active, .modal-leave-active { transition: opacity .2s ease; }
+    .modal-enter-active .janela, .modal-leave-active .janela { transition: transform .2s ease; }
+    .modal-enter-from, .modal-leave-to { opacity: 0; }
+    .modal-enter-from .janela, .modal-leave-to .janela { transform: translateY(12px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    /* ---------- ecrãs estreitos (telemóvel) ---------- */
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      #app { height: auto; min-height: 100vh; }
+      main { display: block; overflow: visible; }
+      .largura { padding: 0 20px; }
+      .palco { padding: 32px 20px 56px; transform: none !important; }
+      .inicio, .colunas--2, .colunas--3 { grid-template-columns: 1fr; gap: 40px; }
+      .cartas { grid-template-columns: 1fr; justify-items: center; }
+      .carta { width: 100%; max-width: 300px; }
+    }
+    @media (max-width: 560px) {
+      .linhas li { grid-template-columns: 1fr; }
+      .indice .d { display: none; }
+      .indice .t { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <noscript>Este site precisa de JavaScript.</noscript>
+
+  <!-- Estrutura comum a todas as páginas -->
+  <script type="text/x-template" id="app-template">
+    <header class="topo">
+      <div class="largura">
+        <router-link to="/" class="assinatura">
+          <span class="monograma" aria-hidden="true">dd</span>
+          <span>{{ perfil.nome }}</span>
+        </router-link>
+        <nav class="menu" aria-label="Secções">
+          <router-link to="/">Início</router-link>
+          <router-link to="/quem-sou-eu"><small>01</small>Quem Sou Eu?</router-link>
+          <router-link to="/o-que-faco"><small>02</small>O que faço?</router-link>
+          <router-link to="/hobbies"><small>03</small>Hobbies</router-link>
+        </nav>
+      </div>
+    </header>
+
+    <main ref="area">
+      <div class="palco" ref="palco" :style="{ transform: escala < 1 ? 'scale(' + escala + ')' : null }">
+        <router-view v-slot="{ Component }">
+          <transition name="pagina" mode="out-in">
+            <component :is="Component"></component>
+          </transition>
+        </router-view>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="largura">
+        <p>© {{ ano }} {{ perfil.nome }} · <a :href="perfil.projeto" target="_blank" rel="noopener">MiniProj1 no GitHub</a></p>
+        <div class="redes">
+          <a v-for="r in perfil.redes" :key="r.nome" :href="r.url" target="_blank" rel="noopener" :title="r.nome" :aria-label="r.nome">
+            <svg :viewBox="icones[r.icone].viewBox" aria-hidden="true"><path :d="icones[r.icone].d"></path></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <janela-modal></janela-modal>
+  </script>
+
+  <script type="text/x-template" id="inicio">
+    <section class="inicio">
+      <div>
+        <img v-if="perfil.foto" :src="perfil.foto" :alt="perfil.nome" class="foto">
+        <p class="etiqueta">{{ perfil.etiqueta }}</p>
+        <h1 class="nome-grande">
+          <span v-for="(parte, i) in partesNome" :key="i">{{ parte }}{{ i === partesNome.length - 1 ? '.' : '' }}</span>
+        </h1>
+        <p class="lead">{{ perfil.resumo }}</p>
+      </div>
+
+      <div>
+        <ol class="indice">
+          <li>
+            <router-link to="/quem-sou-eu">
+              <span class="n">01</span><span class="t">Quem Sou Eu?</span><span class="pontos"></span><span class="d">percurso e formação</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/o-que-faco">
+              <span class="n">02</span><span class="t">O que faço?</span><span class="pontos"></span><span class="d">experiência e competências</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/hobbies">
+              <span class="n">03</span><span class="t">Hobbies</span><span class="pontos"></span><span class="d">cartas, jogos, motores e código</span>
+            </router-link>
+          </li>
+        </ol>
+        <button class="botao" @click="abrirContacto">Contactar</button>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/x-template" id="quem-sou-eu">
+    <section>
+      <header class="cabeca">
+        <span class="num">01</span>
+        <h1>Quem Sou Eu?</h1>
+      </header>
+
+      <div class="colunas colunas--3">
+        <div class="texto">
+          <p v-for="(paragrafo, i) in perfil.sobre" :key="i">{{ paragrafo }}</p>
+        </div>
+
+        <aside class="ficha">
+          <p class="ficha__titulo">Ficha técnica</p>
+          <dl>
+            <div v-for="d in perfil.dados" :key="d.rotulo">
+              <dt>{{ d.rotulo }}</dt>
+              <dd>{{ d.valor }}</dd>
+            </div>
+            <div>
+              <dt>email</dt>
+              <dd><a :href="'mailto:' + perfil.email">{{ perfil.email }}</a></dd>
+            </div>
+          </dl>
+        </aside>
+
+        <div>
+          <h2 class="rotulo">formação</h2>
+          <ul class="linhas linhas--empilhadas">
+            <li v-for="(f, i) in perfil.formacao" :key="f.curso" :class="{ agora: i === 0 }">
+              <span class="datas">{{ f.datas }}</span>
+              <strong>{{ f.curso }}</strong>
+              <span class="onde">{{ f.escola }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/x-template" id="o-que-faco">
+    <section>
+      <header class="cabeca">
+        <span class="num">02</span>
+        <h1>O que faço?</h1>
+        <p class="lead">{{ perfil.trabalhoAtual }}</p>
+      </header>
+
+      <div class="colunas colunas--2">
+        <div>
+          <h2 class="rotulo">experiência</h2>
+          <ul class="linhas">
+            <li v-for="(e, i) in perfil.experiencia" :key="e.datas" :class="{ agora: i === 0 }">
+              <span class="datas">{{ e.datas }}</span>
+              <div>
+                <strong>{{ e.cargo }}</strong> <span class="onde">· {{ e.empresa }}</span>
+                <p v-if="e.descricao">{{ e.descricao }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="rotulo">competências</h2>
+          <dl class="stack">
+            <div v-for="c in perfil.competencias" :key="c.tipo">
+              <dt>{{ c.tipo }}</dt>
+              <dd><code v-for="item in c.itens" :key="item">{{ item }}</code></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/x-template" id="hobbies">
+    <section>
+      <header class="cabeca">
+        <span class="num">03</span>
+        <h1>Hobbies</h1>
+        <p class="lead">Quatro cartas do meu baralho. Carrega numa para a leres.</p>
+      </header>
+
+      <div class="cartas">
+        <button v-for="(h, i) in perfil.hobbies" :key="h.nome" class="carta" :style="{ '--cor': h.cor }" @click="abrir(h)">
+          <span class="carta__topo">
+            <span>{{ h.nome }}</span>
+            <span class="carta__custo">{{ i + 1 }}</span>
+          </span>
+          <span class="carta__arte">
+            <svg v-for="ic in h.icones" :key="ic" :viewBox="icones[ic].viewBox" aria-hidden="true"><path :d="icones[ic].d"></path></svg>
+          </span>
+          <span class="carta__tipo">Hobby — {{ h.tipo }}</span>
+          <span class="carta__texto">{{ h.resumo }}</span>
+          <span class="carta__rodape">
+            <span>{{ numeroCarta(i) }}</span>
+            <span>DD · 2026</span>
+          </span>
+        </button>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/x-template" id="janela-modal">
+    <transition name="modal">
+      <div v-if="modal.aberto" class="fundo" @click.self="fechar">
+        <div class="janela" :style="{ '--cor': modal.cor }" role="dialog" aria-modal="true" aria-labelledby="titulo-janela">
+          <button ref="botaoFechar" class="fechar" aria-label="Fechar" @click="fechar">&times;</button>
+          <p v-if="modal.tipo" class="tipo">{{ modal.tipo }}</p>
+          <h2 id="titulo-janela">{{ modal.titulo }}</h2>
+          <p v-for="(paragrafo, i) in modal.texto" :key="i">{{ paragrafo }}</p>
+          <div v-if="modal.links.length" class="acoes">
+            <a v-for="(l, i) in modal.links" :key="l.href" :href="l.href" :target="l.href.startsWith('http') ? '_blank' : null" rel="noopener"
+               class="botao" :class="{ 'botao--linha': i > 0 }">
+              <svg :viewBox="icones[l.icone].viewBox" aria-hidden="true"><path :d="icones[l.icone].d"></path></svg>
+              {{ l.texto }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@4.4.5/dist/vue-router.global.prod.js"></script>
+
+  <script>
+    const { createApp, reactive, ref, watch, nextTick, onMounted, onUnmounted } = Vue;
+    const { createRouter, createWebHashHistory } = VueRouter;
+
+    // Conteúdo do currículo
+    const perfil = {
+      nome: 'David Dória',
+      etiqueta: 'Tech Lead · C# / .NET · Setúbal',
+      resumo: 'Trabalho com C# e .NET há mais de dez anos. Hoje sou Tech Lead na Aceve e estudante de mestrado na Universidade Aberta.',
+      foto: '', // por exemplo 'foto.jpg', na mesma pasta
+      email: 'dvd841@gmail.com',
+
+      sobre: [
+        'Comecei na informática com o curso técnico da Escola Secundária Cacilhas-Tejo. Desde 2016 trabalho sobretudo com C# e .NET.',
+        'Passei por software médico, por projetos para o setor dos media e por consultoria, e pelo caminho também trabalhei com Java, Ruby e Python.',
+        'Em 2025 acabei a licenciatura em Engenharia Informática na Universidade Aberta e este ano comecei o mestrado em Engenharia Informática e Tecnologia Web. Gosto de perceber como os sistemas funcionam por dentro, e foi daí que nasceu o meu interesse por segurança informática.'
+      ],
+
+      dados: [
+        { rotulo: 'localização', valor: 'Setúbal' },
+        { rotulo: 'idiomas', valor: 'Português (nativo), inglês (profissional)' },
+        { rotulo: 'publicação', valor: 'GateWise — controlo de acesso automático com reconhecimento de matrículas' }
+      ],
+
+      formacao: [
+        { datas: '2026 – hoje', curso: 'Mestrado em Engenharia Informática e Tecnologia Web', escola: 'Universidade Aberta' },
+        { datas: '2022 – 2025', curso: 'Licenciatura em Engenharia Informática', escola: 'Universidade Aberta' },
+        { datas: '2005 – 2008', curso: 'Curso Técnico de Informática', escola: 'Escola Secundária Cacilhas-Tejo' }
+      ],
+
+      trabalhoAtual: 'Neste momento sou Tech Lead na Aceve, em Lisboa.',
+
+      experiencia: [
+        { datas: 'dez. 2025 – hoje', cargo: 'Tech Lead', empresa: 'Aceve, Lisboa', descricao: 'Entrei como Senior .NET Developer e mais tarde passei a Tech Lead.' },
+        { datas: 'set. 2024 – dez. 2025', cargo: '.NET Developer', empresa: 'Adentis Portugal, Lisboa', descricao: '' },
+        { datas: 'mar. 2020 – jul. 2024', cargo: '.NET Software Developer', empresa: 'GOInside, Lisboa', descricao: 'Software para o setor dos media e da informação.' },
+        { datas: 'dez. 2018 – fev. 2020', cargo: 'Consultor .NET', empresa: 'Adentis Portugal, Lisboa', descricao: '' },
+        { datas: 'jan. 2018 – dez. 2018', cargo: 'Consultor Java / Software Developer', empresa: 'Teksajo, Almada', descricao: '' },
+        { datas: 'out. 2016 – jan. 2018', cargo: '.NET Software Developer', empresa: 'Speculum, Alfragide', descricao: 'Software para a área da saúde.' }
+      ],
+
+      competencias: [
+        { tipo: 'Linguagens', itens: ['C#', 'VB.NET', 'Java', 'Ruby', 'Python'] },
+        { tipo: 'Plataformas e métodos', itens: ['.NET', 'APIs', 'Agile'] },
+        { tipo: 'Cursos', itens: ['Rails for Zombies Redux', 'Rails for Zombies 2', 'Ruby Bits Part 2', 'Unmasking HTML Emails', 'Journey Into Mobile'] }
+      ],
+
+      hobbies: [
+        {
+          nome: 'TCG', tipo: 'Cartas colecionáveis', cor: '#5b3f8c', icones: ['cartas'],
+          resumo: 'Montar um baralho, testá-lo e voltar a mexer nele.',
+          detalhe: ['Jogos de cartas colecionáveis. Gosto sobretudo de montar baralhos: escolher as cartas, testar e ir ajustando até funcionar.']
+        },
+        {
+          nome: 'Jogos de computador', tipo: 'Jogos', cor: '#136f63', icones: ['comando'],
+          resumo: 'A melhor forma de desligar ao fim do dia.',
+          detalhe: ['Jogo no computador para descontrair. E, como trabalho em software, também acho piada a perceber como os jogos são feitos por dentro.']
+        },
+        {
+          nome: 'Carros e motas', tipo: 'Motores', cor: '#b3261e', icones: ['carro', 'mota'],
+          resumo: 'Se tem motor, interessa-me.',
+          detalhe: ['Gosto de carros e de motas: da condução, da mecânica e de acompanhar o que vai saindo.']
+        },
+        {
+          nome: 'Programar', tipo: 'Código', cor: '#1f4e8c', icones: ['codigo'],
+          resumo: 'Também fora do horário de trabalho.',
+          detalhe: ['Programar não é só trabalho. Nos tempos livres gosto de experimentar linguagens e ferramentas novas em pequenos projetos pessoais.']
+        }
+      ],
+
+      redes: [
+        { nome: 'LinkedIn', url: 'https://www.linkedin.com/in/david-d%C3%B3ria-4805baa6/', icone: 'linkedin' },
+        { nome: 'GitHub', url: 'https://github.com/davidgdoria', icone: 'github' }
+      ],
+
+      projeto: 'https://github.com/users/davidgdoria/projects/1'
+    };
+
+    // Ícones: Font Awesome Free 6.5.2 (CC BY 4.0) — https://fontawesome.com/license/free
+    const icones = {
+      linkedin: { viewBox: '0 0 448 512', d: 'M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z' },
+      github: { viewBox: '0 0 496 512', d: 'M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z' },
+      email: { viewBox: '0 0 512 512', d: 'M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z' },
+      cartas: { viewBox: '0 0 512 512', d: 'M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z' },
+      comando: { viewBox: '0 0 640 512', d: 'M192 64C86 64 0 150 0 256S86 448 192 448H448c106 0 192-86 192-192s-86-192-192-192H192zM496 168a40 40 0 1 1 0 80 40 40 0 1 1 0-80zM392 304a40 40 0 1 1 80 0 40 40 0 1 1 -80 0zM168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H216v32c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h32V200z' },
+      carro: { viewBox: '0 0 640 512', d: 'M171.3 96H224v96H111.3l30.4-75.9C146.5 104 158.2 96 171.3 96zM272 192V96h81.2c9.7 0 18.9 4.4 25 12l67.2 84H272zm256.2 1L428.2 68c-18.2-22.8-45.8-36-75-36H171.3c-39.3 0-74.6 23.9-89.1 60.3L40.6 196.4C16.8 205.8 0 228.9 0 256V368c0 17.7 14.3 32 32 32H65.3c7.6 45.4 47.1 80 94.7 80s87.1-34.6 94.7-80H385.3c7.6 45.4 47.1 80 94.7 80s87.1-34.6 94.7-80H608c17.7 0 32-14.3 32-32V320c0-65.2-48.8-119-111.8-127zM434.7 368a48 48 0 1 1 90.5 32 48 48 0 1 1 -90.5-32zM160 336a48 48 0 1 1 0 96 48 48 0 1 1 0-96z' },
+      mota: { viewBox: '0 0 640 512', d: 'M280 32c-13.3 0-24 10.7-24 24s10.7 24 24 24h57.7l16.4 30.3L256 192l-45.3-45.3c-12-12-28.3-18.7-45.3-18.7H64c-17.7 0-32 14.3-32 32v32h96c88.4 0 160 71.6 160 160c0 11-1.1 21.7-3.2 32h70.4c-2.1-10.3-3.2-21-3.2-32c0-52.2 25-98.6 63.7-127.8l15.4 28.6C402.4 276.3 384 312 384 352c0 70.7 57.3 128 128 128s128-57.3 128-128s-57.3-128-128-128c-13.5 0-26.5 2.1-38.7 6L418.2 128H480c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32H459.6c-7.5 0-14.7 2.6-20.5 7.4L391.7 78.9l-14-26c-7-12.9-20.5-21-35.2-21H280zM462.7 311.2l28.2 52.2c6.3 11.7 20.9 16 32.5 9.7s16-20.9 9.7-32.5l-28.2-52.2c2.3-.3 4.7-.4 7.1-.4c35.3 0 64 28.7 64 64s-28.7 64-64 64s-64-28.7-64-64c0-15.5 5.5-29.7 14.7-40.8zM187.3 376c-9.5 23.5-32.5 40-59.3 40c-35.3 0-64-28.7-64-64s28.7-64 64-64c26.9 0 49.9 16.5 59.3 40h66.4C242.5 268.8 190.5 224 128 224C57.3 224 0 281.3 0 352s57.3 128 128 128c62.5 0 114.5-44.8 125.8-104H187.3zM128 384a32 32 0 1 0 0-64 32 32 0 1 0 0 64z' },
+      codigo: { viewBox: '0 0 640 512', d: 'M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z' }
+    };
+
+    // Janela modal, partilhada por todas as páginas
+    const modal = reactive({ aberto: false, titulo: '', tipo: '', texto: [], links: [], cor: '' });
+    let focoAnterior = null;
+
+    function abrirModal({ titulo, tipo = '', texto = [], links = [], cor = '' }) {
+      focoAnterior = document.activeElement;
+      Object.assign(modal, { titulo, tipo, texto, links, cor, aberto: true });
+    }
+
+    function fecharModal() {
+      modal.aberto = false;
+      if (focoAnterior) focoAnterior.focus();
+    }
+
+    function abrirContacto() {
+      const linkedin = perfil.redes.find(r => r.icone === 'linkedin');
+      abrirModal({
+        titulo: 'Contactar',
+        texto: ['O email é a forma mais rápida de falar comigo. Também estou no LinkedIn.'],
+        links: [
+          { texto: perfil.email, href: 'mailto:' + perfil.email, icone: 'email' },
+          { texto: 'LinkedIn', href: linkedin.url, icone: 'linkedin' }
+        ]
+      });
+    }
+
+    // Páginas
+    const Inicio = {
+      template: '#inicio',
+      setup: () => ({ perfil, partesNome: perfil.nome.split(' '), abrirContacto })
+    };
+
+    const QuemSouEu = {
+      template: '#quem-sou-eu',
+      setup: () => ({ perfil })
+    };
+
+    const OQueFaco = {
+      template: '#o-que-faco',
+      setup: () => ({ perfil })
+    };
+
+    const Hobbies = {
+      template: '#hobbies',
+      setup() {
+        const total = String(perfil.hobbies.length).padStart(3, '0');
+        const numeroCarta = i => String(i + 1).padStart(3, '0') + '/' + total;
+        const abrir = h => abrirModal({ titulo: h.nome, tipo: 'Hobby — ' + h.tipo, texto: h.detalhe, cor: h.cor });
+        return { perfil, icones, numeroCarta, abrir };
+      }
+    };
+
+    const JanelaModal = {
+      template: '#janela-modal',
+      setup() {
+        const botaoFechar = ref(null);
+
+        function tecla(e) {
+          if (e.key === 'Escape' && modal.aberto) fecharModal();
+        }
+
+        watch(() => modal.aberto, aberto => {
+          document.body.style.overflow = aberto ? 'hidden' : '';
+          if (aberto) nextTick(() => botaoFechar.value.focus());
+        });
+
+        onMounted(() => document.addEventListener('keydown', tecla));
+        onUnmounted(() => document.removeEventListener('keydown', tecla));
+
+        return { modal, icones, fechar: fecharModal, botaoFechar };
+      }
+    };
+
+    // Rotas. Com o modo hash os endereços ficam index.html#/hobbies, etc.,
+    // e a página nunca é recarregada ao navegar.
+    const router = createRouter({
+      history: createWebHashHistory(),
+      routes: [
+        { path: '/', component: Inicio, meta: { titulo: 'Início' } },
+        { path: '/quem-sou-eu', component: QuemSouEu, meta: { titulo: 'Quem Sou Eu?' } },
+        { path: '/o-que-faco', component: OQueFaco, meta: { titulo: 'O que faço?' } },
+        { path: '/hobbies', component: Hobbies, meta: { titulo: 'Hobbies' } },
+        { path: '/:pathMatch(.*)*', redirect: '/' }
+      ],
+      scrollBehavior() {
+        return { top: 0 };
+      }
+    });
+
+    router.afterEach(to => {
+      document.title = to.meta.titulo + ' — ' + perfil.nome;
+    });
+
+    const app = createApp({
+      template: '#app-template',
+      setup() {
+        const area = ref(null);
+        const palco = ref(null);
+        const escala = ref(1);
+        const telemovel = window.matchMedia('(max-width: 760px)');
+
+        // Se o conteúdo for mais alto do que o espaço entre o cabeçalho e o
+        // rodapé, reduz-se à escala certa para nunca haver scroll vertical.
+        // No telemóvel a página faz scroll normalmente.
+        function ajustar() {
+          if (!area.value || !palco.value || telemovel.matches) {
+            escala.value = 1;
+            return;
+          }
+          const disponivel = area.value.clientHeight;
+          const conteudo = palco.value.offsetHeight;
+          escala.value = Math.min(1, disponivel / conteudo);
+        }
+
+        let observador;
+        onMounted(() => {
+          observador = new ResizeObserver(ajustar);
+          observador.observe(area.value);
+          observador.observe(palco.value);
+          document.fonts.ready.then(ajustar);
+        });
+        onUnmounted(() => observador.disconnect());
+
+        return { perfil, icones, area, palco, escala, ano: new Date().getFullYear() };
+      }
+    });
+
+    app.component('janela-modal', JanelaModal);
+    app.use(router);
+    app.mount('#app');
+  </script>
+</body>
+</html>
